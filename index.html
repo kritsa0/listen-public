@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <title>Krit - Listening</title>
+    </head>
+
+<style>
+body {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+</style>
+
+    <body><br><br><br><br><br><br>
+        <div class="container text-center">
+        <div class="row align-items-center">
+
+            <div class="col"></div>
+            <div class="col">
+
+                <img class="rounded" id="track-image" src="" alt="" />
+             
+            </div>
+            <div class="col"> </div>
+        
+        </div>
+        </div>
+
+        <br><br>
+        <div class="container text-center">
+            <div class="row align-items-end">
+    
+                <div class="col"></div>
+                <div class="col text-start">
+                    
+                    <p class="fs-2" id="track-name"></p>
+                    <br><hr><br>
+                    <p class="fs-5" id="artist-name"></p>
+    
+    
+                </div>
+                <div class="col"> </div>
+            
+        </div>
+        </div>
+        
+    <footer><br><br><br><br><p class="text-center align-text-bottom">Create by Krit, with broken HTML</p></footer>
+        <script>
+            const ytLiveData = "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=kritsa0&api_key=cb1531ffa8ff4fef76d39294887a747f&format=json&limit=1";
+
+            const requestCall = apiCall =>
+            fetch(apiCall)
+                .then(res => res.json())
+                .then(data => {
+                    const recentTrack = data.recenttracks.track[0];
+
+                    const artistName = recentTrack.artist['#text'];
+                    const trackImage = recentTrack.image.find(img => img.size === 'extralarge')['#text'];
+                    const trackName = recentTrack.name;
+                    const trackUrl = recentTrack.url;
+
+                    document.getElementById('artist-name').innerText = artistName;
+                    document.getElementById('track-image').src = trackImage;
+                    document.getElementById('track-image').alt = trackName;
+                    document.getElementById('track-name').innerText = trackName;
+                    document.getElementById('track-url').href = trackUrl;
+                    document.getElementById('track-url').innerText = "Listen to the track";
+                });
+
+            setInterval(() => {
+                requestCall(ytLiveData);
+            }, 2000);
+        </script>
+    </body>
+</html>
