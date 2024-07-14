@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <title>Krit - Listening</title>
     </head>
@@ -52,9 +53,11 @@ body {
                 <div class="col"></div>
                 <div class="col text-start">
                     
-                    <p class="fs-2" id="track-name"></p>
+                    <i class="fa-regular fa-music"></i> <p class="fs-2" id="track-name"></p>
                     <br><hr><br>
-                    <p class="fs-5" id="artist-name"></p>
+                    <i class="fa-regular fa-user"></i> <p class="fs-5" id="artist-name"></p>
+                    <br><hr><br>
+                    <i class="fa-regular fa-compact-disc"></i> <p class="fs-5" id="album-name"></p>
     
     
                 </div>
@@ -65,7 +68,7 @@ body {
         
     <footer><br><br><br><br><p class="text-center align-text-bottom">Create by Krit, with broken HTML</p></footer>
         <script>
-            const ytLiveData = "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=kritsa0&api_key=cb1531ffa8ff4fef76d39294887a747f&format=json&limit=1";
+            const Data = "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=kritsa0&api_key=cb1531ffa8ff4fef76d39294887a747f&format=json&limit=1";
 
             const requestCall = apiCall =>
             fetch(apiCall)
@@ -76,18 +79,17 @@ body {
                     const artistName = recentTrack.artist['#text'];
                     const trackImage = recentTrack.image.find(img => img.size === 'extralarge')['#text'];
                     const trackName = recentTrack.name;
-                    const trackUrl = recentTrack.url;
+                    const albumName = recentTrack.album['#text'];
 
                     document.getElementById('artist-name').innerText = artistName;
                     document.getElementById('track-image').src = trackImage;
                     document.getElementById('track-image').alt = trackName;
                     document.getElementById('track-name').innerText = trackName;
-                    document.getElementById('track-url').href = trackUrl;
-                    document.getElementById('track-url').innerText = "Listen to the track";
+                    document.getElementById('album-name').innerText = albumName;
                 });
 
             setInterval(() => {
-                requestCall(ytLiveData);
+                requestCall(Data);
             }, 2000);
         </script>
     </body>
