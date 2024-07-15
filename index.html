@@ -36,10 +36,11 @@ body {
         <div class="container text-center">
         <div class="row">
 
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-4 mx-auto d-block">
 
-                <img class="rounded vw-30 vh-30" id="track-image" style="width: 30vh; height: 30vh; margin: 0px;" src="" alt="" />
-            
+                <div><img class="rounded vw-30 vh-30" id="track-image" style="width: 30vh; height: 30vh;" src="" alt="" /></div>
+                <br><div class="fs-6" style="font-size: 10px;" id="now-playing-status"></div>
+
             </div>
 
             <div class="col-md-8 text-start">
@@ -71,12 +72,14 @@ body {
                     const trackImage = recentTrack.image.find(img => img.size === 'extralarge')['#text'];
                     const trackName = recentTrack.name;
                     const albumName = recentTrack.album['#text'];
+                    const nowPlaying = recentTrack['@attr'] && recentTrack['@attr'].nowplaying;
 
                     document.getElementById('artist-name').innerText = artistName;
                     document.getElementById('track-image').src = trackImage;
                     document.getElementById('track-image').alt = trackName;
                     document.getElementById('track-name').innerText = trackName;
                     document.getElementById('album-name').innerText = albumName;
+                    document.getElementById('now-playing-status').innerText = nowPlaying ? "Now Playing" : "Recent Tracks";
                 });
 
             setInterval(() => {
